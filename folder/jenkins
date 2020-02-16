@@ -18,7 +18,7 @@ parameters {
                       description('select your choice')
                       choiceType('PT_SINGLE_SELECT')
                       groovyScript {
-                          script("return['p_files[0]','p_files[0]']")
+                          script("return['${p_files[0]}','${p_files[0]']}")
                           fallbackScript('return ["error"]')
                       }
                   }
@@ -26,7 +26,7 @@ parameters {
                       description('select your choice')
                       choiceType('RADIO')
                       groovyScript {
-                          script("if(choice1.equals("{p_files[0]}")){return ['${F_files[0]}', '${F_files[1]}', '${F_files[2]}']} else {return ['aaaaaa','fffffff']}")
+                          script("if(choice1.equals("${p_files[0]}")){return ['${F_files[0]}', '${F_files[1]}', '${F_files[2]}']} else {return ['aaaaaa','fffffff']}")
                           fallbackScript('return ["error"]')
                       }
                       referencedParameter('choice1')
