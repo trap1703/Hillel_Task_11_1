@@ -13,6 +13,23 @@ node {
     XX_files = sh(returnStdout:true, script: "cat ${p_files[1]}")
     YY_files = XX_files.split("\n").collect()
     println (YY_files)
-    
+parameters {
+                  activeChoiceParam('choice1') {
+                      description('select your choice')
+                      choiceType('PT_SINGLE_SELECT')
+                      groovyScript {
+                          script("return['${p_files[0]}','${p_files[0]}']")
+                          fallbackScript('return ["error"]')
+                      }
+                  }
+                  activeChoiceReactiveParam('choice2') {
+                      description('select your choice')
+                      choiceType('RADIO')
+                      groovyScript {
+                          script("if(choice1.equals("{p_files[0]}")){return ['${F_files[0]}', '${F_files[1]}', '${F_files[2]}']} else {return ['aaaaaa','fffffff']}")
+                          fallbackScript('return ["error"]')
+                      }
+                      referencedParameter('choice1')
+                  }
    
 }
