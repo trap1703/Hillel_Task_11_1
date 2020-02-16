@@ -15,18 +15,18 @@ node {
     YY_files = XX_files.split("\n").collect()
     println (YY_files)
     result2 = 'if(files.equals(\'' + p_files[0] + '\')) {return [\'' + Y_files[0] + '\', \'' + Y_files[1] + '\', \'' + Y_files[2] + '\']} else if (files.equals(\'' + p_files[1] + '\')) {return [\'' + YY_files[0] + '\', \'' + YY_files[1] + '\', \'' + YY_files[2] + '\']}'
-    def out= new File('/var/jenkins_home/workspace/trap1703/res1.txt')
+    def out= new File('/var/lib/jenkins/workspace/trap1703/res1.txt')
         // если файл не существует, то создаем файл
     if(!out.exists()) {
         out.createNewFile()
         out << result1 // пишем текст в файл
     }
-    def outt= new File('/var/jenkins_home/workspace/trap1703/res2.txt')
+    def outt= new File('/var/lib/jenkins/workspace/trap1703/res2.txt')
         // если файл не существует, то создаем файл
     if(!outt.exists()) {
         outt.createNewFile()
         outt << result2 // пишем текст в файл
     }    
-    properties([parameters([[$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', description: 'filename', filterLength: 1, filterable: false, name: 'files', randomName: 'choice-parameter-941595250365512', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: false, script: ''], script: [classpath: [], sandbox: false, script: sh(returnStdout:true, script: 'cat /var/jenkins_home/workspace/trap1703/res1.txt')]]], [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', description: '', filterLength: 1, filterable: false, name: 'value', randomName: 'choice-parameter-941595264446171', referencedParameters: 'files', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: false, script: ''], script: [classpath: [], sandbox: false, script: sh(returnStdout:true, script: 'cat /var/jenkins_home/workspace/trap1703/res2.txt')]]]])])
+    properties([parameters([[$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', description: 'filename', filterLength: 1, filterable: false, name: 'files', randomName: 'choice-parameter-941595250365512', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: false, script: ''], script: [classpath: [], sandbox: false, script: sh(returnStdout:true, script: 'cat /var/lib/jenkins/workspace/trap1703/res1.txt')]]], [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', description: '', filterLength: 1, filterable: false, name: 'value', randomName: 'choice-parameter-941595264446171', referencedParameters: 'files', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: false, script: ''], script: [classpath: [], sandbox: false, script: sh(returnStdout:true, script: 'cat /var/lib/jenkins/workspace/trap1703/res2.txt')]]]])])
     
 }
