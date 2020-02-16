@@ -18,7 +18,7 @@ parameters {
                       description('select your choice')
                       choiceType('PT_SINGLE_SELECT')
                       groovyScript {
-                          script("return['${p_files[0]}','${p_files[0]}']")
+                          script("return['p_files[0]','p_files[0]']")
                           fallbackScript('return ["error"]')
                       }
                   }
