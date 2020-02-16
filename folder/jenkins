@@ -9,8 +9,8 @@ node {
    sh 'ls -la'
    liste1 = readFile 'file1'
    liste2 = readFile 'file2'
-   properties([parameters([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '100')),
-                          choice(name: 'Param 1', choices: "${liste1}", description: 'Select param 1'),
+   properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '100')), 
+               parameters([choice(name: 'Param 1', choices: "${liste1}", description: 'Select param 1'),
                           choice(name: 'Param 2', choices: "${liste2}", description: 'Select param 2')])])
    sh 'echo Hello World'
 }
