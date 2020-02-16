@@ -1,19 +1,15 @@
 #!/bin/env groovy
-
 node {
     deleteDir()
     checkout scm
     files = sh(returnStdout: true, script: 'ls')
     println "list of property files"
     p_files = files.split("\n").collect()[0,1]
-    println (p_files)
     result1 = 'return[\'' + p_files[0] + '\', \'' + p_files[1] + '\']' 
     X_files = sh(returnStdout:true, script: "cat ${p_files[0]}")
     Y_files = X_files.split("\n").collect()
-    println (Y_files)
     XX_files = sh(returnStdout:true, script: "cat ${p_files[1]}")
     YY_files = XX_files.split("\n").collect()
-    println (YY_files)
     result2 = 'if(files.equals(\'' + p_files[0] + '\')) {return [\'' + Y_files[0] + '\', \'' + Y_files[1] + '\', \'' + Y_files[2] + '\']} else if (files.equals(\'' + p_files[1] + '\')) {return [\'' + YY_files[0] + '\', \'' + YY_files[1] + '\', \'' + YY_files[2] + '\']}'
     def out= new File('/var/lib/jenkins/workspace/trap1703/res1.txt')
         // если файл не существует, то создаем файл
@@ -27,6 +23,6 @@ node {
         outt.createNewFile()
         outt << result2 // пишем текст в файл
     }    
-    properties([parameters([[$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', description: 'filename', filterLength: 1, filterable: false, name: 'files', randomName: 'choice-parameter-941595250365512', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: false, script: ''], script: [classpath: [], sandbox: false, script: sh(returnStdout:true, script: 'cat /var/lib/jenkins/workspace/trap1703/res1.txt')]]], [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', description: '', filterLength: 1, filterable: false, name: 'value', randomName: 'choice-parameter-941595264446171', referencedParameters: 'files', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: false, script: ''], script: [classpath: [], sandbox: false, script: sh(returnStdout:true, script: 'cat /var/lib/jenkins/workspace/trap1703/res2.txt')]]]])])
-    
+    properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '100')), 
+               parameters([[$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', description: 'filename', filterLength: 1, filterable: false, name: 'files', randomName: 'choice-parameter-941595250365512', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: false, script: ''], script: [classpath: [], sandbox: false, script: sh(returnStdout:true, script: 'cat /var/lib/jenkins/workspace/trap1703/res1.txt')]]], [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', description: '', filterLength: 1, filterable: false, name: 'value', randomName: 'choice-parameter-941595264446171', referencedParameters: 'files', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: false, script: ''], script: [classpath: [], sandbox: false, script: sh(returnStdout:true, script: 'cat /var/lib/jenkins/workspace/trap1703/res2.txt')]]]])])
 }
