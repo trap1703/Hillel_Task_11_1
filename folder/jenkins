@@ -13,15 +13,6 @@ node {
     XX_files = sh(returnStdout:true, script: "cat ${p_files[1]}")
     YY_files = XX_files.split("\n").collect()
     println (YY_files)
-    parameters (
-                  activeChoiceParam('choice1') {
-                      description('select your choice')
-                      choiceType('PT_SINGLE_SELECT')
-                      groovyScript {
-                          script("return['aaa','bbb']")
-                          fallbackScript('return ["error"]')
-                  }
-                
-                )
+
    
 }
