@@ -1,18 +1,17 @@
+
 #!/bin/env groovy
 
 node {
-    deleteDir()
-    checkout scm
-
-    files = sh(returnStdout: true, script: 'ls')
-    p_files = files.split("\n").collect()[0,1]
-    println (p_files)
-    F_files = sh(returnStdout:true, script: "cat ${p_files[0]}")
-    F_files = F_files.split("\n").collect()
-    println (F_files)    
-    XX_files = sh(returnStdout:true, script: "cat ${p_files[1]}")
-    YY_files = XX_files.split("\n").collect()
-    println (YY_files)
-    properties([parameters([[$class: 'ChoiceParameter', choiceType: 'PT_SINGLE_SELECT', description: 'filename', filterLength: 1, filterable: false, name: 'files', randomName: 'choice-parameter-941595250365512', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: false, script: ''], script: [classpath: [], sandbox: false, script: sh(returnStdout:true, script: 'echo $p_files')]]], [$class: 'CascadeChoiceParameter', choiceType: 'PT_SINGLE_SELECT', description: '', filterLength: 1, filterable: false, name: 'value', randomName: 'choice-parameter-941595264446171', referencedParameters: 'files', script: [$class: 'GroovyScript', fallbackScript: [classpath: [], sandbox: false, script: ''], script: [classpath: [], sandbox: false, script: sh(returnStdout:true, script: 'cat /var/lib/jenkins/workspace/trap1703/res2.txt')]]]])])
-    
+   deleteDir()
+   checkout scm
+   files = sh(returnStdout: true, script: 'ls')
+   println "list of property files"
+   println files.split("\n").collect()[1,2]
+   sh 'ls -la'
+   liste1 = readFile 'property1'
+   liste2 = readFile 'property2'
+   properties([parameters([choice(name: 'Param 1', choices: "${liste1}", description: 'Select param 1'),
+                           choice(name: 'Param 2', choices: "${liste2}", description: 'Select param 2')])])
+   sh 'echo Hello World'
 }
+
